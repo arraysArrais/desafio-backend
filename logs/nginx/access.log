@@ -1,0 +1,4 @@
+172.27.0.1 - - [24/Feb/2024:15:57:38 +0000] "\x16\x03\x01\x02\x8C\x01\x00\x02\x88\x03\x03\x80\x00h/\x15\x09!\xA1J'=\x0B\x11A\xC2\x9A^\xBE\x18\xF8\xF1\x83*#\x86R^\x9D\xE6\xFCp\x04 \xDA\xDABq\x86\x8F\xB0Q\x9B\xC2\xFF" 400 157 "-" "-" "-"
+172.27.0.1 - - [24/Feb/2024:15:57:44 +0000] "GET / HTTP/1.1" 500 1067329 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:123.0) Gecko/20100101 Firefox/123.0" "-"
+172.27.0.1 - - [24/Feb/2024:15:58:33 +0000] "GET / HTTP/1.1" 200 26605 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:123.0) Gecko/20100101 Firefox/123.0" "-"
+172.28.0.1 - - [24/Feb/2024:16:03:06 +0000] "GET / HTTP/1.1" 200 26605 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:123.0) Gecko/20100101 Firefox/123.0" "-"
