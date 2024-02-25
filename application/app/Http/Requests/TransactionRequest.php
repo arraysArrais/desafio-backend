@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\DenyLojista;
 use App\Rules\NotEqualIds;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,7 +25,7 @@ class TransactionRequest extends FormRequest
     {
         return [
             'value'=>['required', 'decimal:0,2'],
-            'sender_id'=>['required', 'exists:users,id'],
+            'sender_id'=>['required', 'exists:users,id', new DenyLojista()],
             'receiver_id'=>['required', 'exists:users,id', new NotEqualIds()],
         ];
     }

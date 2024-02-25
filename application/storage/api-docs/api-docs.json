@@ -1,0 +1,172 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API",
+        "description": "Desafio backend",
+        "contact": {
+            "email": "joaopedroarrais@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "get access-token",
+                "description": "JWT Token. Required for all requests.",
+                "operationId": "login",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "admin@admin.com"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "123"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access-token": {
+                                            "type": "string",
+                                            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+                                        },
+                                        "token_type": {
+                                            "type": "string",
+                                            "example": "bearer"
+                                        },
+                                        "expires_in": {
+                                            "type": "integer",
+                                            "example": "3600"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Incorrect username or password"
+                    },
+                    "500": {
+                        "description": "Error while fetching data in database"
+                    }
+                }
+            }
+        },
+        "/api/transaction/": {
+            "post": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "create a transaction",
+                "operationId": "makeTransaction",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "value": {
+                                        "type": "number",
+                                        "example": "100.25"
+                                    },
+                                    "sender_id": {
+                                        "type": "string",
+                                        "example": "8f0a0898-f76a-4ed6-b892-8668ff92b803"
+                                    },
+                                    "receiver_id": {
+                                        "type": "string",
+                                        "example": "e3ba9153-85b8-4ad4-8935-dc48482c4adb"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "example": "8668ff92b803-f76a-8f0a0898-4ed6-b892"
+                                        },
+                                        "value": {
+                                            "type": "number",
+                                            "example": "100.25"
+                                        },
+                                        "sender_id": {
+                                            "type": "string",
+                                            "example": "8f0a0898-f76a-4ed6-b892-8668ff92b803"
+                                        },
+                                        "receiver_id": {
+                                            "type": "string",
+                                            "example": "e3ba9153-85b8-4ad4-8935-dc48482c4adb"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2023-06-25T17:56:59.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2023-06-25T17:56:59.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unathenticated"
+                    },
+                    "422": {
+                        "description": "Invalid data"
+                    },
+                    "500": {
+                        "description": "Error while fetching data in database"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
