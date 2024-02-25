@@ -11,11 +11,12 @@ use Throwable;
 
 class TransactionService
 {
-    public function transaction(TransactionRequest $r)
+    public function __construct(private RabbitmqService $rabbitMQ)
     {
-        //TODO enviar mensagem para fila para que seja consumida posteriormente e enviado notificação via serviço externo
-        $sender = User::find($r->get('sender_id'));
+    }
 
+    public function transaction(TransactionRequest $r){
+        $sender = User::find($r->get('sender_id'));
 
         $sufficientFunds = $sender->balance >= $r->get('value');
 
@@ -51,6 +52,9 @@ class TransactionService
                 DB::rollback();
                 return response()->json(["message" => "Transaction failed"], 500);
             }
+
+            //envia o payload inteiro da request para a fila configurada no serviço do RabbitMQ
+            $this->rabbitMQ->sendMsg(json_encode($r->all()));
 
             return response()->json([
                 "message" => "Transaction completed successfully",
