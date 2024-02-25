@@ -4,9 +4,11 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -17,10 +19,19 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    protected $keyType = 'string';
+    public $incrementing = false;
+
+    protected $table = 'users';
+    
     protected $fillable = [
         'name',
         'email',
         'password',
+        'cpf',
+        'role',
+        'balance'
     ];
 
     /**
@@ -31,6 +42,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'email_verified_at',
     ];
 
     /**
@@ -42,4 +54,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public static function booted() {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->id = Str::uuid();
+        });
+    }
+    
+    //relacionamentos
+    public function receipts(): HasMany
+    {
+        return $this->hasMany(Transaction::class, 'receiver_id', 'id');
+    }
+
+    public function sendings(): HasMany
+    {
+        return $this->hasMany(Transaction::class, 'sender_id', 'id');
+    }
 }
