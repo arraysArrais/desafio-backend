@@ -13,10 +13,7 @@ class TransactionService
 {
     public function transaction(TransactionRequest $r)
     {
-        //TODO implementar lógica da transaction
-        //verificar se o sender possui saldo suficiente para a transação. Se sim, procede. Se não, retorna erro para o cliente informando
-        //débito da conta do sender
-        //crédito na conta do receiver
+        //TODO enviar mensagem para fila para que seja consumida posteriormente e enviado notificação via serviço externo
         $sender = User::find($r->get('sender_id'));
 
 
@@ -46,14 +43,14 @@ class TransactionService
                 $receiver->balance += $r->get('value');
                 $receiver->save();
 
+                //cria registro de transaction no banco
+                $transaction = Transaction::create($r->toArray());
+
                 DB::commit();
             } catch (Throwable $e) {
                 DB::rollback();
                 return response()->json(["message" => "Transaction failed"], 500);
             }
-
-            //cria registro de transaction no banco
-            $transaction = Transaction::create($r->toArray());
 
             return response()->json([
                 "message" => "Transaction completed successfully",
