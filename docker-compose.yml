@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: nginx/Dockerfile
-    ports: 
+    ports:
       - "8080:80"
     networks:
       - internal
@@ -30,7 +30,7 @@ services:
     image: mysql:latest
     platform: linux/x86_64
     ports:
-     - "3307:3306"
+      - "3307:3306"
     environment:
       MYSQL_ROOT_PASSWORD: 'root'
       MYSQL_USER: 'prova'
@@ -39,6 +39,15 @@ services:
       - ./db-data:/var/lib/mysql
     networks:
       - internal
+  notification-service:
+    build:
+      context: ./notification-service
+      dockerfile: ./Dockerfile
+    container_name: notification-microservice
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./notification-service-files:/app/src
 networks:
   internal:
     driver: bridge
