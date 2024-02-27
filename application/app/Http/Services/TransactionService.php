@@ -53,8 +53,16 @@ class TransactionService
                 return response()->json(["message" => "Transaction failed"], 500);
             }
 
-            //envia o payload inteiro da request para a fila configurada no serviço do RabbitMQ
-            $this->rabbitMQ->sendMsg(json_encode($r->all()));
+            //monta mensagem a ser enviada para a fila
+            $msg = [
+                "id" => Transaction::latest()->first()->only('id')['id'],
+                "value" => $r->get('value'),
+                "sender" => User::find($r->get('sender_id'))->only(['name', 'email', 'balance']),
+                "receiver" => User::find($r->get('receiver_id'))->only(['name', 'email', 'balance']), 
+            ];
+
+            //envia a mensagem para a fila configurada no serviço do RabbitMQ
+            $this->rabbitMQ->sendMsg(json_encode($msg));
 
             return response()->json([
                 "message" => "Transaction completed successfully",
