@@ -75,6 +75,9 @@ localhost:8080/setup
 
 ```
 
+### Observação
+Caso esteja usando alguma distro linux, talvez seja necessário conceder permissões de acesso/leitura/escrita ao diretório raíz do repositório utilizando o comando chmod.
+
 ## Documentação
 ```bash
 # Acesse o endereço abaixo no seu navegador para acessar a SwaggerUI 
