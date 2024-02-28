@@ -86,4 +86,13 @@ Caso esteja usando alguma distro linux, talvez seja necessário conceder permiss
 localhost:8080/api/documentation
 ```
 
+## Testes
+```bash
+# Execute o comando abaixo para executar os testes automatizados
+$ php artisan test
+
+Lembrando que este comando deve ser executado dentro do container PHP!
+Para abrir a linha de comando dentro deste container:
+$ docker compose exec php sh
+```
 
