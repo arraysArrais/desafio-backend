@@ -17,7 +17,7 @@ class UserController extends Controller
      *     path="/api/user/",
      *     security={{"bearerAuth": {}}},
      *     tags={"Users"},
-     *     summary="Retrieve users",
+     *     summary="retrieve users",
      *     operationId="getAll",
      *     @OA\Parameter(
      *         name="limit",

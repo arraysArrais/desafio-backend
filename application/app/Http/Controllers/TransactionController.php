@@ -72,7 +72,7 @@ class TransactionController extends Controller
      *     path="/api/transaction/",
      *     security={{"bearerAuth": {}}},
      *     tags={"Transactions"},
-     *     summary="Retrieve transactions",
+     *     summary="retrieve transactions",
      *     operationId="getTransactionsBySenderId",
      *     @OA\Parameter(
      *         name="limit",

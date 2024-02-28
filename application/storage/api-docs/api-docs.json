@@ -75,12 +75,100 @@
                 }
             }
         },
+        "/api/auth/register": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "create a user",
+                "operationId": "register",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "johndoe@johndoe.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "123"
+                                    },
+                                    "cpf": {
+                                        "type": "string",
+                                        "example": "23443522017"
+                                    },
+                                    "role": {
+                                        "type": "string",
+                                        "example": "default"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "example": "8668ff92b803-f76a-8f0a0898-4ed6-b892"
+                                        },
+                                        "value": {
+                                            "type": "number",
+                                            "example": "100.25"
+                                        },
+                                        "sender_id": {
+                                            "type": "string",
+                                            "example": "8f0a0898-f76a-4ed6-b892-8668ff92b803"
+                                        },
+                                        "receiver_id": {
+                                            "type": "string",
+                                            "example": "e3ba9153-85b8-4ad4-8935-dc48482c4adb"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2023-06-25T17:56:59.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2023-06-25T17:56:59.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unathenticated"
+                    },
+                    "422": {
+                        "description": "Invalid data"
+                    },
+                    "500": {
+                        "description": "Error while fetching data in database"
+                    }
+                }
+            }
+        },
         "/api/transaction/": {
             "get": {
                 "tags": [
                     "Transactions"
                 ],
-                "summary": "Retrieve transactions",
+                "summary": "retrieve transactions",
                 "operationId": "getTransactionsBySenderId",
                 "parameters": [
                     {
@@ -224,7 +312,7 @@
                 "tags": [
                     "Users"
                 ],
-                "summary": "Retrieve users",
+                "summary": "retrieve users",
                 "operationId": "getAll",
                 "parameters": [
                     {

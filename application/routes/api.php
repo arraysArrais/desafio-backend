@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
     return $request->user();
 }); */
 
+
+
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
@@ -28,12 +30,14 @@ Route::group([
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
+    Route::post('register', [AuthController::class, 'register']);
 });
 
 Route::middleware(['auth:api'])->group(function () {
     Route::post('/transaction', [TransactionController::class, 'makeTransaction'])->name('transaction');
     Route::get('/transaction', [TransactionController::class, 'getTransactions']);
     Route::get('/user', [UserController::class, 'getAll']);
+    
     
 });
 

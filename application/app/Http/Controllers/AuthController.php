@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Http\Requests\UserRequest;
+use App\Http\Services\UserService;
+use Throwable;
 
 class AuthController extends Controller
 {
@@ -13,9 +14,10 @@ class AuthController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(private UserService $userService)
     {
-        $this->middleware('auth:api', ['except' => ['login', 'unauthorized']]);
+
+        $this->middleware('auth:api', ['except' => ['login', 'unauthorized', 'register']]);
     }
 
     /**
@@ -147,5 +149,59 @@ class AuthController extends Controller
         return response()->json([
             'error' => 'Unathenticated..'
         ], 401);
+    }
+
+        /**
+     * @OA\Post(
+     *     path="/api/auth/register",
+     *     operationId="register",
+     *     tags={"auth"},
+     *     summary="create a user",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *      type="object",
+     *      @OA\Property(property="name", type="string", example="John Doe"),
+     *      @OA\Property(property="email", type="string", example="johndoe@johndoe.com"),
+     *      @OA\Property(property="password", type="string", example="123"),
+     *      @OA\Property(property="cpf", type="string", example="23443522017"),
+     *      @OA\Property(property="role", type="string", example="default"),
+     *   ),
+     * ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *      type="object",
+     *      @OA\Property(property="id", type="string", example="8668ff92b803-f76a-8f0a0898-4ed6-b892"),
+     *      @OA\Property(property="value", type="number", example="100.25"),
+     *      @OA\Property(property="sender_id", type="string", example="8f0a0898-f76a-4ed6-b892-8668ff92b803"),
+     *      @OA\Property(property="receiver_id", type="string", example="e3ba9153-85b8-4ad4-8935-dc48482c4adb"),
+     *      @OA\Property(property="created_at", type="string", example="2023-06-25T17:56:59.000000Z"),
+     *      @OA\Property(property="updated_at", type="string", example="2023-06-25T17:56:59.000000Z"),
+     *   ),
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unathenticated", 
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Invalid data"
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Error while fetching data in database"
+     *     ),
+     * ),
+     */
+    public function register(UserRequest $r){
+        try{
+            return $this->userService->createUser($r);
+        }catch(Throwable $e){
+            return response()->json([
+                "error"=>$e->getMessage()
+            ], 500);
+        }
     }
 }
