@@ -30,7 +30,7 @@ Veja as variáveis abaixo e confira mais detalhes na seção "Rodando o projeto"
 `MAILER_SERVICE_URL`  
 
 
-## Rodando o projeto (Necessário Docker instalado na máquina)
+## Rodando e configurando o projeto (Necessário Docker instalado na máquina)
 
 ```bash
 # Clone o projeto
@@ -68,21 +68,16 @@ $ ren .env.example .env # Windows
 $ docker compose up --build
 
 # Após subir os serviços do container, vamos iniciar o setup da aplicação PHP.
-# Abra um novo terminal, navegue até a raíz do repositório e execute o comando abaixo, 
-# para executar comandos dentro do container da aplicação PHP.
-$ docker compose exec php sh
+# Basta acessar o endereço abaixo no seu navegador 
+# para que a aplicação execute os scripts de forma automática
 
-# Agora execute os comandos a seguir:
-$ composer install
-$ php artisan key:generate
-$ php artisan jwt:secret
-$ php artisan migrate --force
-$ php artisan db:seed
+localhost:8080/setup
+
 ```
 
 ## Documentação
 ```bash
-# Acesse o endereço abaixo no seu browser para acessar a SwaggerUI 
+# Acesse o endereço abaixo no seu navegador para acessar a SwaggerUI 
 # e interagir com os recursos da API principal.
 
 localhost:8080/api/documentation
