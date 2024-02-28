@@ -81,6 +81,11 @@ $ php artisan db:seed
 ```
 
 ## Documentação
-Acesse o endereço localhost:8080/api/documentation no seu browser para acessar a SwaggerUI e interagir com a API da aplicação principal.
+```bash
+# Acesse o endereço abaixo no seu browser para acessar a SwaggerUI 
+# e interagir com os recursos da API principal.
+
+localhost:8080/api/documentation
+```
 
 
