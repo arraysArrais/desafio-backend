@@ -46,8 +46,6 @@ services:
     container_name: notification-microservice
     ports:
       - '3000:3000'
-    volumes:
-      - ./notification-service-files:/app/src
 networks:
   internal:
     driver: bridge

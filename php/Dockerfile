@@ -18,18 +18,3 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-# Instalar dependêncioas
-RUN composer install
-
-# Gerar APP_KEY
-RUN php artisan key:generate
-
-# Gerar chave JWT
-RUN php artisan jwt:secret 
-
-# Rodar migrations
-RUN php artisan migrate --force
-
-# Rodar seeders
-RUN php artisan db:seed
