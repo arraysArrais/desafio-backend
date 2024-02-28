@@ -14,7 +14,7 @@ class TransactionTest extends TestCase
     protected $seed = true; //roda seeders antes de executar o teste
     use RefreshDatabase;
 
-    public function test_transaction_successful()
+    public function test_request_to_transaction_endpoint_should_return_201()
     {
         // Criação de usuários de teste
         $sender = User::create([
