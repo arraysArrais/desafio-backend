@@ -1,6 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import RabbitMQClient from './services/rabbitMq/rabbitMq';
 import { getGCPIdentityToken } from './utils/googleCloudAuth';
+import { Cron } from '@nestjs/schedule';
 
 @Controller()
 export class AppController {
@@ -9,7 +10,7 @@ export class AppController {
   ) { }
 
 
-  //@Cron('3 * * * * *')
+  @Cron('5 * * * * *')
   @Get()
   async entryPoint() {
     await this.rabbitMQClient.openConnection();
