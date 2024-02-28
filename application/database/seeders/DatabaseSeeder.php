@@ -23,21 +23,21 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         User::create(
-/*             [
+            [
                 'name' => 'Desafio',
                 'password' => '123',
                 'email' => 'admin@admin.com',
                 'role' => 'default',
                 'balance' => 1000.50,
                 'cpf' => '87905838099'
-            ], */
+            ],
             [
-                'name' => 'João Pedro',
+                'name' => 'John Doe',
                 'password' => '123',
-                'email' => 'joaopedroarrais@gmail.com',
+                'email' => 'admin2@admin.com',
                 'role' => 'default',
                 'balance' => 500.00,
-                'cpf' => '12067966774'
+                'cpf' => '73414825082'
             ]
         );
     }
