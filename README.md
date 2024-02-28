@@ -55,12 +55,12 @@ $ mv .env.example .env # Linux
 # Ou..
 $ ren .env.example .env # Windows
 
-# Preencha os arquivos .env com as credenciais de acesso aos sistemas externos fornecidas 
-ao recrutador
+# Preencha os arquivos .env com as credenciais de acesso aos sistemas externos 
+# fornecidas ao recrutador
 
 # Copie o arquivo key.json para a pasta notification-service. 
 # Este passo é necessário para realizar autenticação com o serviço externo 
-de envio de e-mails hospedado no Google Cloud em uma Cloud function.
+# de envio de e-mails hospedado no Google Cloud em uma Cloud function.
 
 # Agora já temos todas as credenciais necessárias para acesso aos serviços externos
 
@@ -69,7 +69,7 @@ $ docker compose up --build
 
 # Após subir os serviços do container, vamos iniciar o setup da aplicação PHP.
 # Abra um novo terminal, navegue até a raíz do repositório e execute o comando abaixo, 
-para executar comandos dentro do container da aplicação PHP.
+# para executar comandos dentro do container da aplicação PHP.
 $ docker compose exec php sh
 
 # Agora execute os comandos a seguir:
