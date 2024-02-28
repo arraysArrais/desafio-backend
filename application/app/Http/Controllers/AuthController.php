@@ -24,32 +24,21 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-     /**
+    /**
      * @OA\Post(
      *     path="/api/auth/login",
      *     operationId="login",
      *     tags={"auth"},
      *     summary="get access-token",
      *     description="JWT Token. Required for all requests.",
-     *     @OA\Parameter(
-     *         name="email",
-     *         in="query",
+     *     @OA\RequestBody(
      *         required=true,
-     *         @OA\Schema(
-     *             type="string",
-     *             example="admin@admin.com",
-     *         ),
-     *     ),
-     *     @OA\Parameter(
-     *         name="password",
-     *         in="query",
-     *         required=true,
-     *         @OA\Schema(
-     *             type="string",
-     *             example="123",
-     *         ),
-     *         
-     *     ),
+     *         @OA\JsonContent(
+     *      type="object",
+     *      @OA\Property(property="email", type="string", example="admin@admin.com"),
+     *      @OA\Property(property="password", type="string", example="123"),
+     *   ),
+     * ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",

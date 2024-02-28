@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TransactionController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,4 +32,9 @@ Route::group([
 
 Route::middleware(['auth:api'])->group(function () {
     Route::post('/transaction', [TransactionController::class, 'makeTransaction'])->name('transaction');
+    Route::get('/transaction', [TransactionController::class, 'getTransactions']);
+    Route::get('/user', [UserController::class, 'getAll']);
+    
 });
+
+

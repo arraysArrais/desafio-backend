@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TransactionRequest;
 use App\Http\Services\TransactionService;
+use Illuminate\Http\Request;
 use Throwable;
 
 class TransactionController extends Controller
@@ -55,15 +56,78 @@ class TransactionController extends Controller
      *     ),
      * ),
      */
-    public function makeTransaction(TransactionRequest $r)
-    {
+    public function makeTransaction(TransactionRequest $r){
         try {
-            $transaction = $this->transactionService->transaction($r);
-            return $transaction;
+            return $this->transactionService->transaction($r);
         } catch (Throwable $e) {
             return response()->json([
                 "error" => "Internal error",
                 "message" => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/api/transaction/",
+     *     security={{"bearerAuth": {}}},
+     *     tags={"Transactions"},
+     *     summary="Retrieve transactions",
+     *     operationId="getTransactionsBySenderId",
+     *     @OA\Parameter(
+     *         name="limit",
+     *         in="query",
+     *         description="limit of records per page",
+     *         required=false,
+     *         @OA\Schema(
+     *             type="string",
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="page",
+     *         in="query",
+     *         description="page which you want to navigate to",
+     *         required=false,
+     *         @OA\Schema(
+     *             type="string",
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="sender_id",
+     *         in="query",
+     *         required=false,
+     *         @OA\Schema(
+     *             type="string",
+     *         )
+     *     ),      
+     *     @OA\Parameter(
+     *         name="receiver_id",
+     *         in="query",
+     *         required=false,
+     *         @OA\Schema(
+     *             type="string",
+     *         )
+     *     ),     
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation"
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unathenticated"
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Internal Error"
+     *     )
+     * )
+     */
+    public function getTransactions(Request $r){
+        try {
+            return $this->transactionService->findAll($r);
+        } catch (Throwable $e) {
+            return response()->json([
+                "error" => $e->getMessage()
             ], 500);
         }
     }

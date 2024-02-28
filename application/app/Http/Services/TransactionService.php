@@ -5,6 +5,7 @@ namespace App\Http\Services;
 use App\Http\Requests\TransactionRequest;
 use App\Models\Transaction;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Throwable;
@@ -58,7 +59,7 @@ class TransactionService
                 "id" => Transaction::latest()->first()->only('id')['id'],
                 "value" => $r->get('value'),
                 "sender" => User::find($r->get('sender_id'))->only(['name', 'email', 'balance']),
-                "receiver" => User::find($r->get('receiver_id'))->only(['name', 'email', 'balance']), 
+                "receiver" => User::find($r->get('receiver_id'))->only(['name', 'email', 'balance']),
             ];
 
             //envia a mensagem para a fila configurada no serviço do RabbitMQ
@@ -71,5 +72,23 @@ class TransactionService
         }
 
         return response()->json(['error' => 'Transaction not allowed by external entity'], 400);
+    }
+
+    public function findAll(Request $r){
+        $limit = $r->exists('limit') ? $r->limit : null;
+
+        $query = Transaction::query();
+
+        if ($r->filled('sender_id') && $r->filled('receiver_id')) {
+            $query->where('sender_id', $r->sender_id)->where('receiver_id', $r->receiver_id);
+        }
+        if ($r->filled('sender_id')) {
+            $query->where('sender_id', $r->sender_id);
+        }
+        if ($r->filled('receiver_id')) {
+            $query->where('receiver_id', $r->receiver_id);
+        }
+
+        return $query->simplePaginate($limit);
     }
 }
