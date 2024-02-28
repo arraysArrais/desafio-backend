@@ -121,21 +121,25 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "John Doe"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "johndoe@johndoe.com"
+                                        },
+                                        "cpf": {
+                                            "type": "string",
+                                            "example": "23443522017"
+                                        },
+                                        "role": {
+                                            "type": "string",
+                                            "example": "lojista"
+                                        },
                                         "id": {
                                             "type": "string",
-                                            "example": "8668ff92b803-f76a-8f0a0898-4ed6-b892"
-                                        },
-                                        "value": {
-                                            "type": "number",
-                                            "example": "100.25"
-                                        },
-                                        "sender_id": {
-                                            "type": "string",
-                                            "example": "8f0a0898-f76a-4ed6-b892-8668ff92b803"
-                                        },
-                                        "receiver_id": {
-                                            "type": "string",
-                                            "example": "e3ba9153-85b8-4ad4-8935-dc48482c4adb"
+                                            "example": "c18d67e4-acbd-4f25-accd-3587a0ebd219"
                                         },
                                         "created_at": {
                                             "type": "string",
