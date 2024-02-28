@@ -29,15 +29,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'admin@admin.com',
                 'role' => 'default',
                 'balance' => 1000.50,
-                'cpf' => '87905838099'
-            ],
-            [
-                'name' => 'John Doe',
-                'password' => '123',
-                'email' => 'admin2@admin.com',
-                'role' => 'default',
-                'balance' => 500.00,
-                'cpf' => '73414825082'
+                'cpf' => '50621888060'
             ]
         );
     }
